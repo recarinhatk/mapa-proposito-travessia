@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa do Propósito · Programa de Mentoria · Valéria Carinhato</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+  :root {
+    --navy: #0E2C47;
+    --navy-light: #163d63;
+    --aqua: #96D1CB;
+    --aqua-dark: #5BA8A0;
+    --yellow: #E2A44E;
+    --yellow-light: #EBC489;
+    --yellow-dark: #C8893A;
+    --cream: #EFEBE3;
+    --cream-dark: #E4DDD3;
+    --white: #FFFFFF;
+    --text-dark: #1A1A2E;
+    --text-mid: #3D5168;
+    --text-light: #6B7E94;
+    --line: rgba(14,44,71,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', 'Calibri Light', Calibri, sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ── ARCOS CONCÊNTRICOS (SVG background) ── */
+  .page {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .arc-bg {
+    position: absolute;
+    right: -120px;
+    top: -120px;
+    width: 500px;
+    height: 500px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── SANDWICH HEADER ── */
+  .doc-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 32px 48px 28px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .doc-header .arc-pivot {
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 340px;
+    height: 340px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .header-left {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .header-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--aqua);
+    margin-bottom: 6px;
+  }
+
+  .header-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .header-sub {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-top: 8px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+  }
+
+  .header-vc-bar {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 300;
+    border-left: 1px solid rgba(150,209,203,0.25);
+    padding-left: 28px;
+  }
+
+  .header-vc-bar strong {
+    display: block;
+    font-size: 14px;
+    color: var(--aqua);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  /* ── IDENTITY FIELDS ── */
+  .identity-strip {
+    background: var(--cream-dark);
+    padding: 14px 48px;
+    display: flex;
+    gap: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .id-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .id-field span {
+    flex: 1;
+    border-bottom: 1px solid rgba(14,44,71,0.25);
+    height: 22px;
+  }
+
+  /* ── INTRO NOTE ── */
+  .intro-note {
+    padding: 22px 48px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  .intro-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .intro-note p {
+    font-size: 12.5px;
+    color: var(--text-mid);
+    font-style: italic;
+    line-height: 1.65;
+  }
+
+  /* ── SECTION DIVIDERS (sandwich) ── */
+  .section-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-header .arc-mini {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 180px;
+    height: 180px;
+    opacity: 0.07;
+  }
+
+  .section-num {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--aqua);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--aqua);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .section-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-left: auto;
+    font-style: italic;
+    font-weight: 300;
+    max-width: 300px;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* ── CONTENT AREA ── */
+  .section-content {
+    background: var(--white);
+    padding: 32px 48px;
+    position: relative;
+  }
+
+  .section-content.cream {
+    background: var(--cream);
+  }
+
+  /* ── QUESTION BLOCKS ── */
+  .question-block {
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .question-block:last-child { margin-bottom: 0; }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .q-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .q-num.navy { background: var(--navy); color: var(--white); }
+  .q-num.aqua { background: var(--aqua); color: var(--navy); }
+  .q-num.yellow { background: var(--yellow); color: var(--white); }
+
+  .q-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.45;
+    padding-top: 4px;
+  }
+
+  .q-prompt {
+    font-size: 11.5px;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 2px;
+    font-weight: 300;
+  }
+
+  .q-lines {
+    margin-left: 44px;
+    margin-top: 10px;
+  }
+
+  .write-line {
+    border-bottom: 1px solid var(--line);
+    height: 28px;
+    margin-bottom: 4px;
+  }
+
+  /* ── ACCENT BAR before block ── */
+  .q-block-accented {
+    padding-left: 16px;
+    border-left: 3px solid var(--aqua);
+    margin-bottom: 28px;
+  }
+
+  .q-block-accented.yellow { border-left-color: var(--yellow); }
+
+  /* ── DUAL COLUMNS ── */
+  .dual-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .col-box {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .col-box-header {
+    padding: 12px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .col-box-header.navy { background: var(--navy); color: var(--white); }
+  .col-box-header.aqua { background: var(--aqua); color: var(--navy); }
+  .col-box-header.yellow { background: var(--yellow); color: var(--white); }
+  .col-box-header.navy-light { background: var(--navy-light); color: var(--white); }
+
+  .col-box-prompts {
+    padding: 14px 18px;
+    font-size: 11px;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.7;
+    background: var(--cream);
+  }
+
+  .col-box-lines {
+    padding: 12px 18px;
+    background: var(--white);
+  }
+
+  /* ── TRIPLE COLUMNS ── */
+  .triple-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  /* ── DIVIDER LINE ── */
+  .h-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 24px 0;
+  }
+
+  .h-divider.aqua { background: var(--aqua); opacity: 0.5; height: 2px; }
+  .h-divider.yellow { background: var(--yellow); opacity: 0.4; height: 2px; }
+
+  /* ── INLINE COLS ── */
+  .check-group {
+    display: flex;
+    gap: 24px;
+    margin-left: 44px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  .check-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--navy);
+    border-radius: 2px;
+  }
+
+  /* ── SANDWICH SECTION FOOTER ── */
+  .section-footer-bar {
+    background: var(--navy);
+    height: 4px;
+  }
+
+  /* ── FOOTER (rodapé com monograma) ── */
+  .doc-footer {
+    background: var(--navy);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-footer .arc-footer {
+    position: absolute;
+    left: -60px;
+    bottom: -60px;
+    width: 220px;
+    height: 220px;
+    opacity: 0.05;
+  }
+
+  .footer-text {
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .footer-text strong {
+    display: block;
+    color: var(--aqua);
+    font-size: 11px;
+    margin-bottom: 2px;
+    letter-spacing: 2px;
+  }
+
+  /* ── MONOGRAMA TRIÂNGULOS ── */
+  .monogram {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; }
+    .page { max-width: 100%; }
+    .section-content { page-break-inside: avoid; }
+  }
+
+  /* ── IKIGAI-STYLE SYNTHESIS ── */
+  .synthesis-box {
+    background: var(--navy);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-top: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .synthesis-box .arc-synth {
+    position: absolute;
+    right: -60px;
+    bottom: -60px;
+    width: 240px;
+    height: 240px;
+    opacity: 0.06;
+  }
+
+  .synth-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--aqua);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .synth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .synth-cell {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(150,209,203,0.2);
+    border-radius: 3px;
+    padding: 16px;
+  }
+
+  .synth-cell-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--aqua);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .synth-line {
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    height: 26px;
+    margin-bottom: 4px;
+  }
+
+  .synth-final {
+    grid-column: 1 / -1;
+    background: rgba(226,164,78,0.12);
+    border-color: rgba(226,164,78,0.3);
+    padding: 18px;
+  }
+
+  .synth-final .synth-cell-label { color: var(--yellow); }
+
+  /* ── PROPOSE BLANK (Eu existo para __ , através de __ , para que __) ── */
+  .propose-blank {
+    display: inline-block;
+    min-width: 200px;
+    border-bottom: 1px solid rgba(226,164,78,0.5);
+    height: 18px;
+    vertical-align: middle;
+    margin: 0 4px;
+  }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    border-left: 3px solid var(--yellow);
+    padding: 14px 20px;
+    background: rgba(226,164,78,0.07);
+    margin-bottom: 28px;
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .quote-block cite {
+    display: block;
+    margin-top: 6px;
+    font-style: normal;
+    font-size: 10.5px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* PAGE BREAK HINT */
+  .page-break { 
+    border-top: 1.5px dashed rgba(14,44,71,0.12);
+    margin: 40px 0 0;
+    position: relative;
+  }
+  .page-break::after {
+    content: 'continua';
+    position: absolute;
+    top: -8px;
+    right: 0;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    background: var(--cream);
+    padding: 0 8px;
+  }
+
+  .spacer { height: 28px; }
+
+  /* ── VALUE CELLS (Passos 1, 2) ── */
+  .val-cell {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 10px 12px;
+    min-height: 56px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+  .val-cell::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     FORMULÁRIO PREENCHÍVEL · ESTILOS DE INPUT
+  ═══════════════════════════════════════════════════ */
+
+  /* Identity strip — redesenhado para campos reais */
+  .identity-strip {
+    background: var(--cream-dark);
+    padding: 18px 48px;
+    display: grid;
+    grid-template-columns: 1.3fr 1.3fr 1fr 1.4fr;
+    gap: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .id-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .id-field-group label {
+    font-size: 9.5px;
+    color: var(--text-light);
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .optional-tag {
+    font-size: 8px;
+    background: var(--aqua);
+    color: var(--navy);
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: lowercase;
+  }
+
+  .id-field-group input {
+    background: var(--white);
+    border: 1px solid rgba(14,44,71,0.18);
+    border-radius: 2px;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: var(--text-dark);
+    transition: border-color 0.15s;
+  }
+
+  .id-field-group input:focus {
+    outline: none;
+    border-color: var(--aqua-dark);
+    box-shadow: 0 0 0 2px rgba(91,168,160,0.15);
+  }
+
+  .id-field-group input:invalid:not(:placeholder-shown) {
+    border-color: #c8893a;
+  }
+
+  /* Textarea principal das perguntas */
+  .answer-area {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 60px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .answer-area:focus {
+    outline: none;
+    border-color: var(--aqua-dark);
+    box-shadow: 0 0 0 2px rgba(91,168,160,0.15);
+  }
+
+  .answer-area.invalid {
+    border-color: var(--yellow-dark);
+    background: rgba(226,164,78,0.04);
+  }
+
+  /* Override do q-lines para conter o textarea sem padding extra */
+  .q-lines {
+    margin-left: 44px;
+    margin-top: 10px;
+  }
+
+  /* Val-cells dos valores estruturais (Passos 1 e 2) */
+  .val-cell {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 8px 10px;
+    min-height: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+  }
+  .val-cell::after { display: none; }
+
+  .val-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+  }
+
+  .val-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    padding: 4px 0;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: var(--text-dark);
+    transition: border-color 0.15s;
+  }
+
+  .val-input:focus {
+    outline: none;
+    border-bottom-color: var(--aqua-dark);
+  }
+
+  /* Textarea da síntese (fundo navy) */
+  .synth-area {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(150,209,203,0.25);
+    color: var(--white);
+  }
+
+  .synth-area:focus {
+    border-color: var(--aqua);
+    box-shadow: 0 0 0 2px rgba(150,209,203,0.15);
+  }
+
+  .synth-area::placeholder {
+    color: rgba(255,255,255,0.35);
+    font-style: italic;
+  }
+
+  /* ── PROPÓSITO · Verso fenomenológico ── */
+  .proposito-verse {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255, 248, 235, 0.92);
+    line-height: 2.4;
+    letter-spacing: 0.3px;
+    margin: 18px 0 14px;
+    text-align: left;
+  }
+
+  .proposito-verse .connector {
+    color: rgba(255, 248, 235, 0.78);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .propose-blank-input {
+    display: inline-block;
+    min-width: 140px;
+    max-width: 280px;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(226, 164, 78, 0.55);
+    color: var(--yellow-light, #EBC489);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 500;
+    padding: 2px 6px 4px;
+    margin: 0 4px;
+    vertical-align: baseline;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .propose-blank-input.xlong {
+    min-width: 220px;
+    max-width: 360px;
+  }
+
+  .propose-blank-input::placeholder {
+    color: rgba(150, 209, 203, 0.45);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .propose-blank-input:focus {
+    outline: none;
+    border-bottom-color: var(--yellow);
+    background: rgba(226, 164, 78, 0.06);
+    color: #F4D9A8;
+  }
+
+  .propose-blank-input:not(:placeholder-shown) {
+    color: #F4D9A8;
+    border-bottom-color: rgba(226, 164, 78, 0.7);
+  }
+
+  .proposito-note {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.55);
+    font-style: italic;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    padding-left: 2px;
+  }
+
+  /* ═══ ACTION BAR (botões de envio) ═══ */
+  .action-bar {
+    background: var(--navy);
+    padding: 28px 48px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .action-bar .arc-action {
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 220px;
+    height: 220px;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .action-intro {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.7);
+    font-style: italic;
+    max-width: 580px;
+    margin: 0 auto 22px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn {
+    background: var(--aqua);
+    color: var(--navy);
+    border: none;
+    padding: 14px 32px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    min-width: 240px;
+  }
+
+  .btn:hover {
+    background: var(--aqua-dark);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--aqua);
+    border: 1px solid var(--aqua);
+  }
+
+  .btn-secondary:hover {
+    background: var(--aqua);
+    color: var(--navy);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ═══ STATUS / FEEDBACK ═══ */
+  .status-bar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 18px;
+    border-radius: 3px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px rgba(14,44,71,0.18);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  .status-bar.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .status-bar.success { background: var(--aqua-dark); }
+  .status-bar.error { background: var(--yellow-dark); }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--aqua);
+    animation: pulse 1.4s infinite;
+  }
+
+  .status-bar.success .status-dot,
+  .status-bar.error .status-dot { animation: none; background: var(--white); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Submission overlay */
+  .submission-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(14,44,71,0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+  }
+
+  .submission-overlay.show { display: flex; }
+
+  .submission-card {
+    background: var(--cream);
+    padding: 56px 48px;
+    border-radius: 4px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .submission-card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  .submission-card p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(14,44,71,0.15);
+    border-top-color: var(--aqua-dark);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .check-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+    color: var(--navy);
+  }
+
+  /* Hide arrows on number inputs */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Print: hide action-bar e status */
+  @media print {
+    .action-bar, .status-bar, .submission-overlay { display: none !important; }
+    .answer-area, .val-input, .propose-blank-input {
+      border: none;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+<form id="mapa-form" novalidate autocomplete="on">
+
+  <!-- ARC BACKGROUND -->
+  <svg class="arc-bg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="500" cy="0" r="80" stroke="#0E2C47" stroke-width="1.5" fill="none"/>
+    <circle cx="500" cy="0" r="140" stroke="#0E2C47" stroke-width="1.5" fill="none"/>
+    <circle cx="500" cy="0" r="210" stroke="#0E2C47" stroke-width="1.5" fill="none"/>
+    <circle cx="500" cy="0" r="290" stroke="#0E2C47" stroke-width="1.5" fill="none"/>
+    <circle cx="500" cy="0" r="380" stroke="#0E2C47" stroke-width="1.5" fill="none"/>
+    <circle cx="500" cy="0" r="480" stroke="#0E2C47" stroke-width="1.5" fill="none"/>
+  </svg>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="doc-header">
+    <svg class="arc-pivot" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="340" cy="0" r="60" stroke="white" stroke-width="1.2" fill="none"/>
+      <circle cx="340" cy="0" r="110" stroke="white" stroke-width="1.2" fill="none"/>
+      <circle cx="340" cy="0" r="170" stroke="white" stroke-width="1.2" fill="none"/>
+      <circle cx="340" cy="0" r="240" stroke="white" stroke-width="1.2" fill="none"/>
+      <circle cx="340" cy="0" r="320" stroke="white" stroke-width="1.2" fill="none"/>
+    </svg>
+    <div class="header-left">
+      <div class="header-eyebrow">Programa de Mentoria · Capítulo 3</div>
+      <div class="header-title">Mapa do Propósito</div>
+      <div class="header-sub">Uma ferramenta para construir, não encontrar, o que orienta a sua vida</div>
+    </div>
+    <div class="header-vc-bar">
+      <strong>Valéria Carinhato</strong>
+      Mentoria Executiva
+    </div>
+  </header>
+
+  <!-- ═══ IDENTITY STRIP ═══ -->
+  <div class="identity-strip">
+    <div class="id-field-group">
+      <label for="mentee_nome">Nome completo *</label>
+      <input type="text" id="mentee_nome" name="mentee_nome" required autocomplete="name">
+    </div>
+    <div class="id-field-group">
+      <label for="mentee_email">E-mail *</label>
+      <input type="email" id="mentee_email" name="mentee_email" required autocomplete="email">
+    </div>
+    <div class="id-field-group">
+      <label for="mentee_telefone">Telefone *</label>
+      <input type="tel" id="mentee_telefone" name="mentee_telefone" required autocomplete="tel" placeholder="(11) 99999-9999">
+    </div>
+    <div class="id-field-group">
+      <label for="mentee_cargo">Cargo &amp; empresa <span class="optional-tag">opcional</span></label>
+      <input type="text" id="mentee_cargo" name="mentee_cargo" autocomplete="organization-title" placeholder="Se aplicável">
+    </div>
+  </div>
+
+  <!-- ═══ INTRO NOTE ═══ -->
+  <div class="intro-note">
+    <svg class="intro-icon" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="14" r="13" stroke="#96D1CB" stroke-width="1.5"/>
+      <path d="M9 14h10M14 9v10" stroke="#96D1CB" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <p>Como usar &nbsp;·&nbsp; Responda cada pergunta com honestidade e sem pressa. Não existe resposta certa, existe a sua resposta. Este mapa é um ponto de partida para conversas mais profundas, não um formulário a ser preenchido.</p>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 01 · QUEM SOU EU
+  ══════════════════════════════════ -->
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">01</div>
+    <div class="section-title">Quem sou eu</div>
+    <div class="section-desc">O propósito começa pelo autoconhecimento. Antes de olhar para o mercado, olhe para dentro.</div>
+  </div>
+
+  <div class="section-content cream">
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">1</div>
+        <div>
+          <div class="q-text">Como você se descreveria em três palavras, não pelo cargo, mas pelo seu modo de ser?</div>
+          <div class="q-prompt">Pense em como as pessoas mais próximas te descrevem.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q1" id="q1" rows="3" required data-section="question" data-qnum="1"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">2</div>
+        <div>
+          <div class="q-text">Quais são as suas maiores forças, aquelas que aparecem mesmo quando você não está se esforçando?</div>
+          <div class="q-prompt">O que você faz com naturalidade que outros acham difícil?</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q2" id="q2" rows="3" required data-section="question" data-qnum="2"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">3</div>
+        <div>
+          <div class="q-text">O que você defende com convicção, mesmo quando tem um custo real?</div>
+          <div class="q-prompt">Valores se revelam nas escolhas difíceis, não nas fáceis.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q3" id="q3" rows="3" required data-section="question" data-qnum="3"></textarea></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 02 · COM QUEM E EM QUE CONTEXTO
+  ══════════════════════════════════ -->
+  <div class="spacer"></div>
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">02</div>
+    <div class="section-title">Com quem e em que contexto</div>
+    <div class="section-desc">O corpo sinaliza antes da mente racional. Preste atenção ao que te energiza e ao que te drena.</div>
+  </div>
+
+  <div class="section-content">
+
+    <div class="dual-col">
+      <div class="col-box">
+        <div class="col-box-header aqua">Pessoas que me energizam</div>
+        <div class="col-box-prompts">
+          Como tomam decisões?<br>
+          Como lidam com conflitos?<br>
+          Que valores estão presentes?<br>
+          O que têm em comum?
+        </div>
+        <div class="col-box-lines">
+          <textarea class="answer-area" name="pessoas_energizam" id="pessoas_energizam" rows="5" required></textarea>
+        </div>
+      </div>
+      <div class="col-box">
+        <div class="col-box-header navy-light">Ambientes que me drenam</div>
+        <div class="col-box-prompts">
+          O que havia nessas experiências?<br>
+          Que padrão se repetia?<br>
+          Que tipo de relação me esgota?<br>
+          O que eu tentava sustentar?
+        </div>
+        <div class="col-box-lines">
+          <textarea class="answer-area" name="ambientes_drenam" id="ambientes_drenam" rows="5" required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented yellow">
+      <div class="q-header">
+        <div class="q-num yellow">4</div>
+        <div>
+          <div class="q-text">Você funciona melhor com estrutura ou com liberdade? Com autonomia ou com diretrizes claras?</div>
+          <div class="q-prompt">Não existe resposta certa, existe o que te favorece de verdade.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q4" id="q4" rows="3" required data-section="question" data-qnum="4"></textarea></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 03 · O QUE FAÇO BEM E GOSTO
+  ══════════════════════════════════ -->
+  <div class="spacer"></div>
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">03</div>
+    <div class="section-title">O que faço bem e gosto de fazer</div>
+    <div class="section-desc">A busca é pela interseção entre habilidade e prazer. Não basta saber fazer, precisa querer fazer.</div>
+  </div>
+
+  <div class="section-content cream">
+
+    <div class="triple-col">
+      <div class="col-box">
+        <div class="col-box-header navy">Relações</div>
+        <div class="col-box-prompts">Comunicar, liderar, mentorar, conectar, facilitar, persuadir</div>
+        <div class="col-box-lines" style="padding: 12px 18px;">
+          <div style="font-size:10px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Minha marca aqui</div>
+          <textarea class="answer-area" name="marca_relacoes" id="marca_relacoes" rows="4" required></textarea>
+</div>
+      </div>
+      <div class="col-box">
+        <div class="col-box-header aqua">Informações</div>
+        <div class="col-box-prompts">Analisar, sintetizar, planejar, estruturar, enxergar padrões</div>
+        <div class="col-box-lines" style="padding: 12px 18px;">
+          <div style="font-size:10px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Minha marca aqui</div>
+          <textarea class="answer-area" name="marca_informacoes" id="marca_informacoes" rows="4" required></textarea>
+</div>
+      </div>
+      <div class="col-box">
+        <div class="col-box-header yellow">Realizações</div>
+        <div class="col-box-prompts">Construir, executar, operar, criar fisicamente, materializar ideias</div>
+        <div class="col-box-lines" style="padding: 12px 18px;">
+          <div style="font-size:10px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Minha marca aqui</div>
+          <textarea class="answer-area" name="marca_realizacoes" id="marca_realizacoes" rows="4" required></textarea>
+</div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num aqua">5</div>
+        <div>
+          <div class="q-text">Quais atividades fazem você perder a noção do tempo?</div>
+          <div class="q-prompt">Aqui é o estado em que seu trabalho flui naturalmente, sem esforço algum.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q5" id="q5" rows="3" required data-section="question" data-qnum="5"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num aqua">6</div>
+        <div>
+          <div class="q-text">Quais conquistas te geraram mais satisfação até hoje, independente do reconhecimento de outros?</div>
+          <div class="q-prompt">Não o que impressionou as outras pessoas, mas o que te preencheu.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q6" id="q6" rows="3" required data-section="question" data-qnum="6"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num aqua">7</div>
+        <div>
+          <div class="q-text">Se dinheiro não fosse um fator, como você escolheria ocupar seus dias?</div>
+          <div class="q-prompt">Sem restrição de mercado. Sem "mas isso não paga".</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q7" id="q7" rows="3" required data-section="question" data-qnum="7"></textarea></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 04 · MEUS VALORES ESTRUTURAIS
+  ══════════════════════════════════ -->
+  <div class="spacer"></div>
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">04</div>
+    <div class="section-title">Meus valores estruturais</div>
+    <div class="section-desc">Valores não são aspirações, são os pilares sobre os quais você de fato toma decisões sob pressão.</div>
+  </div>
+
+  <div class="section-content cream">
+
+    <p style="font-size:12.5px;color:var(--text-mid);font-style:italic;line-height:1.65;margin-bottom:24px;max-width:760px;">Valores estruturais não são aspirações, são os pilares sobre os quais você de fato toma decisões sob pressão. Eles revelam o que você não abre mão mesmo quando tem um custo.</p>
+
+    <!-- PASSO 1: 10 valores -->
+    <div style="margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="background:var(--navy);color:var(--white);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:2px;">Passo 1</span>
+        <span style="font-size:12.5px;color:var(--text-dark);font-weight:600;">Liste 10 valores que você genuinamente vive (não os que soa bem dizer):</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+        <div class="val-cell"><span class="val-num">1.</span><input type="text" class="val-input" name="valor_p1_1" id="valor_p1_1" required></div>
+        <div class="val-cell"><span class="val-num">2.</span><input type="text" class="val-input" name="valor_p1_2" id="valor_p1_2" required></div>
+        <div class="val-cell"><span class="val-num">3.</span><input type="text" class="val-input" name="valor_p1_3" id="valor_p1_3" required></div>
+        <div class="val-cell"><span class="val-num">4.</span><input type="text" class="val-input" name="valor_p1_4" id="valor_p1_4" required></div>
+        <div class="val-cell"><span class="val-num">5.</span><input type="text" class="val-input" name="valor_p1_5" id="valor_p1_5" required></div>
+        <div class="val-cell"><span class="val-num">6.</span><input type="text" class="val-input" name="valor_p1_6" id="valor_p1_6" required></div>
+        <div class="val-cell"><span class="val-num">7.</span><input type="text" class="val-input" name="valor_p1_7" id="valor_p1_7" required></div>
+        <div class="val-cell"><span class="val-num">8.</span><input type="text" class="val-input" name="valor_p1_8" id="valor_p1_8" required></div>
+        <div class="val-cell"><span class="val-num">9.</span><input type="text" class="val-input" name="valor_p1_9" id="valor_p1_9" required></div>
+        <div class="val-cell"><span class="val-num">10.</span><input type="text" class="val-input" name="valor_p1_10" id="valor_p1_10" required></div>
+      </div>
+    </div>
+
+    <!-- PASSO 2: 5 valores -->
+    <div style="margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="background:var(--aqua);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:2px;">Passo 2</span>
+        <span style="font-size:12.5px;color:var(--text-dark);font-weight:600;">Se precisasse abrir mão de 5, quais permaneceriam? Escreva os 5 escolhidos:</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+        <div class="val-cell"><span class="val-num">1.</span><input type="text" class="val-input" name="valor_p2_1" id="valor_p2_1" required></div>
+        <div class="val-cell"><span class="val-num">2.</span><input type="text" class="val-input" name="valor_p2_2" id="valor_p2_2" required></div>
+        <div class="val-cell"><span class="val-num">3.</span><input type="text" class="val-input" name="valor_p2_3" id="valor_p2_3" required></div>
+        <div class="val-cell"><span class="val-num">4.</span><input type="text" class="val-input" name="valor_p2_4" id="valor_p2_4" required></div>
+        <div class="val-cell"><span class="val-num">5.</span><input type="text" class="val-input" name="valor_p2_5" id="valor_p2_5" required></div>
+      </div>
+    </div>
+
+    <!-- PASSO 3: 3 valores estruturais -->
+    <div style="margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="background:var(--yellow);color:var(--white);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:2px;">Passo 3</span>
+        <span style="font-size:12.5px;color:var(--text-dark);font-weight:600;">Meus 3 valores estruturais, os que não negociaria mesmo sob pressão real:</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+        <div class="col-box">
+          <div class="col-box-header navy" style="text-align:center;">01</div>
+          <div style="padding:14px 16px;background:var(--white);">
+            <div style="font-size:10.5px;color:var(--text-light);font-style:italic;margin-bottom:8px;">Valor mais essencial</div>
+            <textarea class="answer-area val-estrutural" name="valor_estrutural_1" id="valor_estrutural_1" rows="3" required></textarea>
+          </div>
+        </div>
+        <div class="col-box">
+          <div class="col-box-header aqua" style="text-align:center;">02</div>
+          <div style="padding:14px 16px;background:var(--white);">
+            <div style="font-size:10.5px;color:var(--text-light);font-style:italic;margin-bottom:8px;">Segundo valor estrutural</div>
+            <textarea class="answer-area val-estrutural" name="valor_estrutural_2" id="valor_estrutural_2" rows="3" required></textarea>
+          </div>
+        </div>
+        <div class="col-box">
+          <div class="col-box-header yellow" style="text-align:center;">03</div>
+          <div style="padding:14px 16px;background:var(--white);">
+            <div style="font-size:10.5px;color:var(--text-light);font-style:italic;margin-bottom:8px;">Terceiro valor estrutural</div>
+            <textarea class="answer-area val-estrutural" name="valor_estrutural_3" id="valor_estrutural_3" rows="3" required></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pergunta 8 -->
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">8</div>
+        <div>
+          <div class="q-text">Para cada um dos 3 valores escolhidos: onde ele aparece de verdade na sua rotina? E em que momento recente você o negligenciou?</div>
+          <div class="q-prompt">Valores se provam nas decisões que têm custo, não nas fáceis.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q8" id="q8" rows="4" required data-section="question" data-qnum="8"></textarea></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 05 · CONHECIMENTO + ONDE MINHA POTÊNCIA ENCONTRA O MUNDO
+  ══════════════════════════════════ -->
+  <div class="spacer"></div>
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">05</div>
+    <div class="section-title">Conhecimento &nbsp;·&nbsp; Onde minha potência encontra o mundo</div>
+  </div>
+
+  <div class="section-content">
+
+    <p style="font-size:12.5px;color:var(--text-mid);font-style:italic;line-height:1.65;margin-bottom:24px;max-width:760px;">O propósito começa em você, mas se torna real quando encontra uma necessidade concreta no mundo. É nesse ponto de interseção que o sentido deixa de ser abstrato.</p>
+
+    <div class="triple-col">
+      <div class="col-box">
+        <div class="col-box-header navy">O que domino</div>
+        <div class="col-box-lines" style="padding:12px 18px;">
+          <textarea class="answer-area" name="conhec_domino" id="conhec_domino" rows="5" required></textarea>
+        </div>
+      </div>
+      <div class="col-box">
+        <div class="col-box-header aqua">O que gosto de explorar</div>
+        <div class="col-box-lines" style="padding:12px 18px;">
+          <textarea class="answer-area" name="conhec_exploro" id="conhec_exploro" rows="5" required></textarea>
+        </div>
+      </div>
+      <div class="col-box">
+        <div class="col-box-header yellow">O que quero desenvolver</div>
+        <div class="col-box-lines" style="padding:12px 18px;">
+          <textarea class="answer-area" name="conhec_desenvolvo" id="conhec_desenvolvo" rows="5" required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="h-divider aqua"></div>
+
+    <div class="question-block q-block-accented yellow">
+      <div class="q-header">
+        <div class="q-num yellow">9</div>
+        <div>
+          <div class="q-text">Que tipo de problema ou situação te convoca a agir?</div>
+          <div class="q-prompt">Não precisa ser uma grande causa. Pode ser o tipo de desafio que prende a sua atenção.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q9" id="q9" rows="3" required data-section="question" data-qnum="9"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented yellow">
+      <div class="q-header">
+        <div class="q-num yellow">10</div>
+        <div>
+          <div class="q-text">Para que tipo de problema as pessoas te procuram espontaneamente?</div>
+          <div class="q-prompt">Esse padrão revela onde você gera valor percebido de verdade.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q10" id="q10" rows="3" required data-section="question" data-qnum="10"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented yellow">
+      <div class="q-header">
+        <div class="q-num yellow">11</div>
+        <div>
+          <div class="q-text">O que existe um antes e um depois quando você atua? O que se transforma com a sua presença?</div>
+          <div class="q-prompt">Pense em situações reais, não em aspirações.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q11" id="q11" rows="3" required data-section="question" data-qnum="11"></textarea></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 06 · LEGADO
+  ══════════════════════════════════ -->
+  <div class="spacer"></div>
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">06</div>
+    <div class="section-title">Legado &nbsp;&amp;&nbsp; Impacto</div>
+    <div class="section-desc">Propósito sem contribuição é ego. Sem vitalidade, é martírio.</div>
+  </div>
+
+  <div class="section-content cream">
+
+    <div class="quote-block">
+      "A inovação real exige o abandono de certezas. Não porque o passado seja errado, mas porque o futuro ainda não cabe nas categorias de hoje."
+      <cite>Humberto Maturana</cite>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">12</div>
+        <div>
+          <div class="q-text">Que problema do mundo, ou do seu contexto profissional, te incomoda profundamente?</div>
+          <div class="q-prompt">A indignação justa é um mapa. O que te perturba revela o que você se importa.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q12" id="q12" rows="3" required data-section="question" data-qnum="12"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">13</div>
+        <div>
+          <div class="q-text">Como você quer que as pessoas se sintam depois de interagir com você?</div>
+          <div class="q-prompt">Não o que dirão. O que sentirão.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q13" id="q13" rows="3" required data-section="question" data-qnum="13"></textarea></div>
+      </div>
+    </div>
+
+    <div class="question-block q-block-accented">
+      <div class="q-header">
+        <div class="q-num navy">14</div>
+        <div>
+          <div class="q-text">Daqui a 20 anos, o que você quer ter construído, não apenas conquistado?</div>
+          <div class="q-prompt">Conquista é para você. Construção é para além de você.</div>
+        </div>
+      </div>
+      <div class="q-lines"><textarea class="answer-area" name="q14" id="q14" rows="3" required data-section="question" data-qnum="14"></textarea></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ══════════════════════════════════
+       SÍNTESE FINAL
+  ══════════════════════════════════ -->
+  <div class="spacer"></div>
+  <div class="section-header">
+    <svg class="arc-mini" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="180" cy="0" r="50" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="90" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="180" cy="0" r="140" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="section-num">↳</div>
+    <div class="section-title">Síntese · Rascunho do Propósito</div>
+    <div class="section-desc">Uma primeira formulação. Incompleta, viva, revisável.</div>
+  </div>
+
+  <div class="section-content">
+    <div class="synthesis-box">
+      <svg class="arc-synth" viewBox="0 0 240 240" fill="none" aria-hidden="true">
+        <circle cx="240" cy="240" r="60" stroke="white" stroke-width="1" fill="none"/>
+        <circle cx="240" cy="240" r="110" stroke="white" stroke-width="1" fill="none"/>
+        <circle cx="240" cy="240" r="170" stroke="white" stroke-width="1" fill="none"/>
+        <circle cx="240" cy="240" r="230" stroke="white" stroke-width="1" fill="none"/>
+      </svg>
+      <div class="synth-label">Construção integrada · A partir das suas respostas</div>
+      <p style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.65;margin-bottom:22px;max-width:680px;font-style:italic;">Depois de percorrer todas as dimensões anteriores, integre os temas abaixo com suas reflexões finais.</p>
+      <div class="synth-grid">
+        <div class="synth-cell">
+          <div class="synth-cell-label">Quem eu sou em essência</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.5);font-style:italic;margin-bottom:8px;">(contexto, pessoas, ritmo)</div>
+          <textarea class="answer-area synth-area" name="sintese_essencia" id="sintese_essencia" rows="3" required></textarea>
+        </div>
+        <div class="synth-cell">
+          <div class="synth-cell-label">Faço melhor e com prazer</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.5);font-style:italic;margin-bottom:8px;">(habilidades que me energizam)</div>
+          <textarea class="answer-area synth-area" name="sintese_faco_melhor" id="sintese_faco_melhor" rows="3" required></textarea>
+        </div>
+        <div class="synth-cell">
+          <div class="synth-cell-label">Meus 3 principais valores</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.5);font-style:italic;margin-bottom:8px;">(valores estruturais em ação)</div>
+          <textarea class="answer-area synth-area" name="sintese_valores" id="sintese_valores" rows="3" required></textarea>
+        </div>
+        <div class="synth-cell">
+          <div class="synth-cell-label">O que o mundo precisa de mim</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.5);font-style:italic;margin-bottom:8px;">(valor percebido, impacto real)</div>
+          <textarea class="answer-area synth-area" name="sintese_mundo" id="sintese_mundo" rows="3" required></textarea>
+        </div>
+        <div class="synth-cell" style="grid-column:1 / -1;">
+          <div class="synth-cell-label">O que quero construir ainda</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.5);font-style:italic;margin-bottom:8px;">(direção, próximo capítulo)</div>
+          <textarea class="answer-area synth-area" name="sintese_construir" id="sintese_construir" rows="3" required></textarea>
+        </div>
+        <div class="synth-cell synth-final">
+          <div class="synth-cell-label">Primeiro rascunho do meu propósito</div>
+          <p class="proposito-verse">
+            <span class="connector">Sinto que estou vivendo meu propósito quando</span>
+            <input type="text" class="propose-blank-input xlong" name="proposito_blank_1" id="proposito_blank_1" required placeholder="esta situação acontece">,
+            <br>
+            <span class="connector">porque consigo transformar</span>
+            <input type="text" class="propose-blank-input" name="proposito_blank_2" id="proposito_blank_2" required placeholder="esta matéria-prima">
+            <span class="connector">em</span>
+            <input type="text" class="propose-blank-input" name="proposito_blank_3" id="proposito_blank_3" required placeholder="este resultado">,
+            <br>
+            <span class="connector">gerando</span>
+            <input type="text" class="propose-blank-input xlong" name="proposito_blank_4" id="proposito_blank_4" required placeholder="este impacto no mundo">.
+          </p>
+          <div class="proposito-note">Não precisa ser perfeita. Precisa ser honesta.</div>
+          <textarea class="answer-area synth-area" name="proposito_rascunho_extra" id="proposito_rascunho_extra" rows="3" placeholder="Espaço extra para refinar sua formulação"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-footer-bar"></div>
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="doc-footer">
+    <svg class="arc-footer" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+      <circle cx="0" cy="220" r="60" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="0" cy="220" r="110" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="0" cy="220" r="170" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <div class="footer-text">
+      <strong>Valéria Carinhato</strong>
+      Mentoria Executiva · Liderança Regenerativa
+    </div>
+    <div class="monogram">
+      <!-- Monograma triângulos VC -->
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Triângulo base (Navy) -->
+        <polygon points="19,4 34,32 4,32" fill="none" stroke="#96D1CB" stroke-width="1.4"/>
+        <!-- Triângulo invertido interior (Aqua) -->
+        <polygon points="19,28 9,12 29,12" fill="none" stroke="#E2A44E" stroke-width="1.2"/>
+        <!-- Ponto central -->
+        <circle cx="19" cy="19" r="2" fill="#96D1CB"/>
+      </svg>
+      <div style="text-align:left;">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);">Mentoria</div>
+        <div style="font-size:10px;letter-spacing:3px;color:var(--aqua);font-weight:600;">Travessia</div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- ═══ ACTION BAR ═══ -->
+  <div class="action-bar">
+    <svg class="arc-action" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+      <circle cx="220" cy="0" r="60" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="220" cy="0" r="110" stroke="white" stroke-width="1" fill="none"/>
+      <circle cx="220" cy="0" r="170" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <p class="action-intro">
+      Antes de enviar, revise suas respostas com calma. Você pode baixar uma cópia em PDF para ficar com a sua versão. Após o envio, a Valéria receberá o seu Mapa do Propósito para preparar a próxima sessão.
+    </p>
+    <div class="action-buttons">
+      <button type="button" class="btn btn-secondary" id="btn-download-pdf">Baixar minha versão em PDF</button>
+      <button type="button" class="btn" id="btn-submit">Enviar minhas respostas</button>
+    </div>
+  </div>
+
+  <!-- ═══ STATUS BAR (autosave) ═══ -->
+  <div class="status-bar" id="status-bar" role="status" aria-live="polite">
+    <span class="status-dot"></span>
+    <span id="status-text">Rascunho salvo</span>
+  </div>
+
+  <!-- ═══ SUBMISSION OVERLAY ═══ -->
+  <div class="submission-overlay" id="submission-overlay" role="dialog" aria-modal="true">
+    <div class="submission-card" id="submission-card">
+      <div class="spinner" id="submission-spinner"></div>
+      <h2 id="submission-title">Enviando suas respostas</h2>
+      <p id="submission-message">Aguarde um instante. Estamos entregando o seu Mapa do Propósito.</p>
+      <button type="button" class="btn" id="submission-close" style="display:none;">Fechar</button>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+</form>
+
+<!-- ═══════════════════════════════════════════════
+     SCRIPTS · Autosave, Envio, PDF
+═══════════════════════════════════════════════ -->
+<script>
+(() => {
+  'use strict';
+
+  // ═══ CONFIGURAÇÃO ═══
+  // Esta URL será preenchida na Etapa 5 (após criar o Apps Script)
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw4iltswKOYvEbqglO5i9B8fDu5g0ZjwEel23h6L1Y11Jybonk-JlZIZkmxa7gyXvUPg/exec';
+
+  const STORAGE_KEY = 'mapaProposito_rascunho_v1';
+  const AUTOSAVE_DELAY = 1500; // ms
+
+  // ═══ ELEMENTOS ═══
+  const form = document.getElementById('mapa-form');
+  const statusBar = document.getElementById('status-bar');
+  const statusText = document.getElementById('status-text');
+  const btnSubmit = document.getElementById('btn-submit');
+  const btnPdf = document.getElementById('btn-download-pdf');
+  const overlay = document.getElementById('submission-overlay');
+  const submissionTitle = document.getElementById('submission-title');
+  const submissionMessage = document.getElementById('submission-message');
+  const submissionSpinner = document.getElementById('submission-spinner');
+  const submissionClose = document.getElementById('submission-close');
+
+  // ═══ AUTOSAVE ═══
+  let saveTimeout;
+  let lastSavedAt = null;
+
+  function showStatus(text, type = '') {
+    statusText.textContent = text;
+    statusBar.className = 'status-bar show ' + type;
+    if (type === 'success') {
+      setTimeout(() => statusBar.classList.remove('show'), 2200);
+    }
+  }
+
+  function collectFormData() {
+    const data = {};
+    const formData = new FormData(form);
+    for (const [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+    return data;
+  }
+
+  function saveDraft() {
+    try {
+      const data = collectFormData();
+      data._savedAt = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      lastSavedAt = new Date();
+      showStatus('Rascunho salvo', 'success');
+    } catch (err) {
+      console.error('Erro ao salvar rascunho:', err);
+    }
+  }
+
+  function restoreDraft() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+      let restoredCount = 0;
+      for (const [key, value] of Object.entries(data)) {
+        if (key.startsWith('_')) continue;
+        const field = form.elements[key];
+        if (field && value) {
+          field.value = value;
+          restoredCount++;
+        }
+      }
+      if (restoredCount > 0) {
+        const date = data._savedAt ? new Date(data._savedAt).toLocaleString('pt-BR') : '';
+        showStatus(`Rascunho restaurado · ${date}`, 'success');
+      }
+      return restoredCount > 0;
+    } catch (err) {
+      console.error('Erro ao restaurar rascunho:', err);
+      return false;
+    }
+  }
+
+  function scheduleAutosave() {
+    clearTimeout(saveTimeout);
+    showStatus('Digitando...');
+    saveTimeout = setTimeout(saveDraft, AUTOSAVE_DELAY);
+  }
+
+  // Anexa autosave a todos os campos
+  form.addEventListener('input', scheduleAutosave);
+
+  // ═══ VALIDAÇÃO ═══
+  function validateForm() {
+    const required = form.querySelectorAll('[required]');
+    let firstInvalid = null;
+    let invalidCount = 0;
+
+    required.forEach(field => {
+      field.classList.remove('invalid');
+      if (!field.value.trim()) {
+        field.classList.add('invalid');
+        invalidCount++;
+        if (!firstInvalid) firstInvalid = field;
+      }
+    });
+
+    // Validação de e-mail
+    const emailField = form.elements['mentee_email'];
+    if (emailField && emailField.value) {
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value);
+      if (!emailValid) {
+        emailField.classList.add('invalid');
+        invalidCount++;
+        if (!firstInvalid) firstInvalid = emailField;
+      }
+    }
+
+    return { valid: invalidCount === 0, firstInvalid, invalidCount };
+  }
+
+  // ═══ ENVIO ═══
+  async function submitForm() {
+    const { valid, firstInvalid, invalidCount } = validateForm();
+
+    if (!valid) {
+      showStatus(`${invalidCount} campo(s) incompletos`, 'error');
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => firstInvalid.focus(), 500);
+      }
+      return;
+    }
+
+    // Salva versão final antes de enviar
+    saveDraft();
+
+    // Mostra overlay
+    overlay.classList.add('show');
+    submissionTitle.textContent = 'Enviando suas respostas';
+    submissionMessage.textContent = 'Aguarde um instante. Estamos entregando o seu Mapa do Propósito.';
+    submissionSpinner.style.display = 'block';
+    submissionClose.style.display = 'none';
+    btnSubmit.disabled = true;
+
+    const payload = collectFormData();
+    payload._submittedAt = new Date().toISOString();
+    payload._userAgent = navigator.userAgent;
+
+    // Se ainda não configurou o Apps Script, mostra mensagem clara
+    if (APPS_SCRIPT_URL === 'COLAR_AQUI_A_URL_DO_APPS_SCRIPT') {
+      setTimeout(() => {
+        submissionSpinner.style.display = 'none';
+        submissionTitle.textContent = 'Configuração pendente';
+        submissionMessage.innerHTML = 'A integração com o Google Drive ainda não foi finalizada. Suas respostas estão salvas localmente neste navegador. Quando a configuração for concluída, será possível enviar normalmente.';
+        submissionClose.style.display = 'inline-block';
+        btnSubmit.disabled = false;
+      }, 1200);
+      return;
+    }
+
+    try {
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+
+      // Com no-cors não podemos ler resposta, então assumimos sucesso
+      // (se houver erro de rede, o catch captura)
+      submissionSpinner.style.display = 'none';
+      const checkIcon = document.createElement('div');
+      checkIcon.className = 'check-icon';
+      checkIcon.textContent = '✓';
+      submissionSpinner.parentNode.insertBefore(checkIcon, submissionSpinner);
+
+      submissionTitle.textContent = 'Mapa enviado';
+      submissionMessage.textContent = 'Suas respostas chegaram. A Valéria vai recebê-las antes da sessão. Caso queira, baixe sua versão em PDF para ficar com uma cópia.';
+      submissionClose.style.display = 'inline-block';
+
+      // Limpar rascunho local após envio bem-sucedido
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (err) {
+      console.error('Erro no envio:', err);
+      submissionSpinner.style.display = 'none';
+      submissionTitle.textContent = 'Não foi possível enviar';
+      submissionMessage.innerHTML = 'Houve um problema na conexão. Suas respostas continuam salvas neste navegador. Tente novamente em alguns minutos, ou baixe sua versão em PDF e envie diretamente para a Valéria.';
+      submissionClose.style.display = 'inline-block';
+      btnSubmit.disabled = false;
+    }
+  }
+
+  submissionClose.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  btnSubmit.addEventListener('click', submitForm);
+
+  // ═══ DOWNLOAD PDF ═══
+  function downloadPDF() {
+    // Antes de imprimir, salva o rascunho
+    saveDraft();
+    // Usa a função nativa de impressão do navegador
+    // O usuário escolhe "Salvar como PDF"
+    showStatus('Abrindo diálogo de impressão...', 'success');
+    setTimeout(() => window.print(), 300);
+  }
+
+  btnPdf.addEventListener('click', downloadPDF);
+
+  // ═══ INICIALIZAÇÃO ═══
+  document.addEventListener('DOMContentLoaded', () => {
+    const hadDraft = restoreDraft();
+    if (!hadDraft) {
+      showStatus('Comece a preencher. Suas respostas são salvas automaticamente.', 'success');
+    }
+  });
+
+  // Avisa antes de fechar se há rascunho não enviado
+  window.addEventListener('beforeunload', (e) => {
+    const hasData = Object.values(collectFormData()).some(v => v && v.trim().length > 0);
+    if (hasData && lastSavedAt) {
+      // Não bloqueia, só garante autosave
+      saveDraft();
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
