@@ -1023,6 +1023,234 @@
     }
   }
 
+  /* ═══════════════════════════════════════════════════
+     MOBILE RESPONSIVE · max-width 640px
+  ═══════════════════════════════════════════════════ */
+  @media (max-width: 640px) {
+
+    /* Header: empilha verticalmente, oculta vc-bar */
+    .doc-header {
+      padding: 24px 20px 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .header-vc-bar {
+      display: none;
+    }
+
+    .header-title {
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    .header-eyebrow {
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .header-sub {
+      font-size: 11px;
+    }
+
+    /* Identity strip: 2 colunas em vez de 4 */
+    .identity-strip {
+      grid-template-columns: 1fr 1fr;
+      padding: 16px 20px;
+      gap: 14px;
+    }
+
+    /* Intro note */
+    .intro-note {
+      padding: 16px 20px;
+    }
+
+    /* Section headers */
+    .section-header {
+      padding: 12px 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-desc {
+      display: none;
+    }
+
+    .section-title {
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    /* Content areas */
+    .section-content {
+      padding: 20px 20px;
+    }
+
+    /* Dual col → single col */
+    .dual-col {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* Triple col → single col */
+    .triple-col {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* Valores grid (Passo 1: 10 células) → 2 colunas */
+    [style*="grid-template-columns:repeat(5,1fr)"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Passo 3 → single col */
+    [style*="grid-template-columns:repeat(3,1fr)"] {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Question blocks */
+    .q-lines {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+
+    .q-header {
+      gap: 10px;
+    }
+
+    .q-text {
+      font-size: 12.5px;
+    }
+
+    .q-prompt {
+      font-size: 10.5px;
+    }
+
+    /* Síntese grid → single col */
+    .synth-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .synth-final {
+      grid-column: 1;
+    }
+
+    .synthesis-box {
+      padding: 20px 18px;
+    }
+
+    /* Verso do propósito */
+    .proposito-verse {
+      font-size: 15px;
+      line-height: 2.2;
+    }
+
+    .propose-blank-input,
+    .propose-blank-input.xlong {
+      min-width: 100px;
+      max-width: 100%;
+      font-size: 15px;
+      display: inline-block;
+    }
+
+    /* Action bar */
+    .action-bar {
+      padding: 24px 20px 32px;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      min-width: unset;
+    }
+
+    /* Status bar */
+    .status-bar {
+      bottom: 12px;
+      right: 12px;
+      left: 12px;
+      font-size: 10px;
+    }
+
+    /* Answer textareas */
+    .answer-area {
+      font-size: 14px;
+    }
+
+    /* Footer */
+    .doc-footer {
+      padding: 20px 20px;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    /* Col-box prompts */
+    .col-box-prompts {
+      font-size: 10.5px;
+    }
+
+    /* Section paddings gerais */
+    .rationale {
+      padding: 20px 20px;
+    }
+
+    /* Pousio note */
+    .quote-block {
+      padding: 12px 16px;
+      font-size: 12px;
+    }
+  }
+
+  /* Tablets (641px–900px): ajuste suave */
+  @media (min-width: 641px) and (max-width: 900px) {
+
+    .doc-header {
+      padding: 28px 32px 24px;
+    }
+
+    .header-title {
+      font-size: 22px;
+    }
+
+    .header-vc-bar {
+      padding-left: 20px;
+    }
+
+    .identity-strip {
+      grid-template-columns: 1fr 1fr;
+      padding: 16px 32px;
+      gap: 16px;
+    }
+
+    .section-content {
+      padding: 24px 32px;
+    }
+
+    .section-header {
+      padding: 12px 32px;
+    }
+
+    .triple-col {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .section-desc {
+      display: none;
+    }
+
+    .synth-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
 </style>
 </head>
 <body>
